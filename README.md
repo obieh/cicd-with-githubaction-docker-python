@@ -1,4 +1,4 @@
-# CICD-with-githubaction-docker-python
+# CICD-with-github action-docker-python
 ### This project demonstrates how to use python, docker, github-actions to build devops pipeline.
 
 * Build a simple webapp with HTML, CSS & Bootstrap.
@@ -39,5 +39,28 @@
 
 ![](./img/Pasted%20image%20(4).png)
 
+6. Run `pip install -r .cicd/requirement.txt` to install all the listed requirements in the text file.
 
+![](./img/Pasted%20image%20(5).png)
+
+7. (Optional) You can run `pip3 freeze` to get a list of requirements installed on your venv.
+
+![](./img/Pasted%20image%20(6).png)
+
+8. Create first app. Add a app.py file.
+
+```python
+from flask import Flask
+
+app = Flask(__name__)
+@app.route('/')
+def home():
+    return "Hello, World!" 
+
+if __name__ == '__main__':
+    app.run()
+```
+
+
+   
 
