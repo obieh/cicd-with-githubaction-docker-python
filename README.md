@@ -60,7 +60,97 @@ def home():
 if __name__ == '__main__':
     app.run()
 ```
+9. Run the flask app.
+
+![](./img/Pasted%20image%20(7).png)
+
+10. On your browser, copy and paste `http://127.0.0.1:5000` to verify your app is running.
+
+![](./img/Pasted%20image%20(8).png)
+
+11. Create a new folder named 'templates', In the new folder, create an index.html file.
+
+12 Add a basic html page as below.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base</title>
+</head>
+<body>
+    <h1> Hi Everyone, this message is from Base</h1>
+</body>
+</html>
+```
+13. Update the code in app.py to look as below
+
+```python
+from flask import Flask, render_template
+
+app = Flask(__name__)
+@app.route('/')
+def home():
+    return "Hello, World!" 
 
 
+@app.route('/base') 
+def home():
+    return render_template('index.html')
+
+
+
+if __name__ == '__main__':
+    app.run()
+```
+14. Run the app again. `python3 app.py`
+
+![](./img/Pasted%20image%20(9).png)
+
+### There is a function naming comflict as shown.
+
+15. Change the base route function name form home to base.
+
+![](./img/Pasted%20image%20(10).png)
+
+16. Run the app agian
+
+![](./img/Pasted%20image%20(11).png)
+
+17. Go to your browser type `127.0.0.1:5000` to verify your app is running.
+
+![](./img/Pasted%20image%20(12).png)
+
+### Add Database, create class && update pages. 
+* Update app.py 
+```python
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)    
+
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(200))
+    complete= db.Column(db.Boolean)
+    
+@app.route('/edit') 
+def base():
+    todo_list=Todo.query.all()
+    return render_template('index.html', todo_list=todo_list)
+
+@app.route('/') 
+def list():
+    todo_list=Todo.query.all()
+    return render_template('list.html', todo_list=todo_list)
+
+
+if __name__ == '__main__':
+    app.run()
    
-
+```
