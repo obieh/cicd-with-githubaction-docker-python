@@ -26,7 +26,11 @@ def list():
     todo_list=Todo.query.all()
     return render_template('list.html', todo_list=todo_list)
 
-
+if __name__ == '__main__':
+    # Create tables before running the app
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
 
 @app.route('/add', methods=['POST']) 
 def add():
@@ -34,7 +38,7 @@ def add():
     new_todo=Todo(content=title, complete=False)
     db.session.add(new_todo)
     db.session.commit()
-    return redirect(url_for(base))
+    return redirect(url_for('base'))
 
 
 @app.route('/update/<int:todo_id>') 
@@ -42,7 +46,7 @@ def update(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     todo.complete = not todo.complete
     db.session.commit()
-    return redirect(url_for(base))
+    return redirect(url_for('base'))
 
 
 @app.route('/delete/<int:todo_id>') 
@@ -50,7 +54,7 @@ def delete(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     db.session.delete(todo)
     db.session.commit()
-    return redirect(url_for(base))
+    return redirect(url_for('base'))
 
 
 
