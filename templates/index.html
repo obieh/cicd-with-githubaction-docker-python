@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 </head>
 <body>
-    <h1> Hi Everyone, this message is from Base</h1>
+    <div class="ui container" style="margin-top:30px;">
+        <h1 class="ui center aligned header">To Do App</h1>
 
-    
+        <form class="ui form" method="post" action="{{ url_for('add') }}">
+            <div class="field">
+                <label>Add new todo</label>
+                <input type="text" name="title" placeholder="What needs to be done?" required>
+            </div>
+            <button class="ui primary button" type="submit">Add</button>
+        </form>
+
+        <div style="margin-top:20px;">
+            {% if todo_list %}
+                {% for todo in todo_list %}
+                <div class="ui segment">
+                    <div class="ui grid">
+                        <div class="twelve wide column">
+                            <h3 class="ui header">{{ todo.id }} | {{ todo.content }}</h3>
+                            <div>
+                                Status:
+                                {% if todo.complete %}
+                                    <span class="ui green label">Completed</span>
+                                {% else %}
+                                    <span class="ui grey label">Pending</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide column" style="text-align:right;">
+                            <a href="{{ url_for('update', todo_id=todo.id) }}" class="ui button">
+                                {% if todo.complete %}Undo{% else %}Complete{% endif %}
+                            </a>
+                            <a href="{{ url_for('delete', todo_id=todo.id) }}" class="ui red button">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="ui message">No todos yet. Add one above.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+# ...existing code...
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
@@ -10,57 +11,40 @@ db = SQLAlchemy(app)
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200))
-    complete= db.Column(db.Boolean)
-    
+    complete = db.Column(db.Boolean, default=False)
 
-
-@app.route('/edit') 
-def base():
-    todo_list=Todo.query.all()
+@app.route('/')
+def index():
+    todo_list = Todo.query.all()
     return render_template('index.html', todo_list=todo_list)
 
+@app.route('/add', methods=['POST'])
+def add():
+    title = request.form.get('title')
+    if title:
+        new_todo = Todo(content=title, complete=False)
+        db.session.add(new_todo)
+        db.session.commit()
+    return redirect(url_for('index'))
 
+@app.route('/update/<int:todo_id>')
+def update(todo_id):
+    todo = Todo.query.filter_by(id=todo_id).first()
+    if todo:
+        todo.complete = not todo.complete
+        db.session.commit()
+    return redirect(url_for('index'))
 
-@app.route('/') 
-def list():
-    todo_list=Todo.query.all()
-    return render_template('list.html', todo_list=todo_list)
+@app.route('/delete/<int:todo_id>')
+def delete(todo_id):
+    todo = Todo.query.filter_by(id=todo_id).first()
+    if todo:
+        db.session.delete(todo)
+        db.session.commit()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    # Create tables before running the app
     with app.app_context():
         db.create_all()
     app.run(debug=True)
-
-@app.route('/add', methods=['POST']) 
-def add():
-    title=request.form.get('title')
-    new_todo=Todo(content=title, complete=False)
-    db.session.add(new_todo)
-    db.session.commit()
-    return redirect(url_for('base'))
-
-
-@app.route('/update/<int:todo_id>') 
-def update(todo_id):
-    todo = Todo.query.filter_by(id=todo_id).first()
-    todo.complete = not todo.complete
-    db.session.commit()
-    return redirect(url_for('base'))
-
-
-@app.route('/delete/<int:todo_id>') 
-def delete(todo_id):
-    todo = Todo.query.filter_by(id=todo_id).first()
-    db.session.delete(todo)
-    db.session.commit()
-    return redirect(url_for('base'))
-
-
-
-
-
-if __name__ == '__main__':
-    app.run()
-   
-   
+# ...existing code...
