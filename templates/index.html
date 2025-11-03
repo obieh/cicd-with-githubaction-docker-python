@@ -35,10 +35,14 @@
                             </div>
                         </div>
                         <div class="four wide column" style="text-align:right;">
-                            <a href="{{ url_for('update', todo_id=todo.id) }}" class="ui button">
-                                {% if todo.complete %}Undo{% else %}Complete{% endif %}
-                            </a>
-                            <a href="{{ url_for('delete', todo_id=todo.id) }}" class="ui red button">Delete</a>
+                            <!-- keep them inline -->
+                            <div class="ui buttons" style="display:inline-flex; gap:8px; justify-content:flex-end;">
+                                <a href="{{ url_for('update', todo_id=todo.id) }}" class="ui button">
+                                    {% if todo.complete %}Undo{% else %}Complete{% endif %}
+                                </a>
+                                <a href="{{ url_for('edit', todo_id=todo.id) }}" class="ui blue button">Edit</a>
+                                <a href="{{ url_for('delete', todo_id=todo.id) }}" class="ui red button">Delete</a>
+                            </div>
                         </div>
                     </div>
                 </div>
