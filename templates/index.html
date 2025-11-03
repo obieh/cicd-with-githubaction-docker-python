@@ -36,7 +36,7 @@
                         </div>
                         <div class="four wide column" style="text-align:right;">
                             <a href="{{ url_for('update', todo_id=todo.id) }}" class="ui button">
-                                {% if to.do.complete %}Undo{% else %}Complete{% endif %}
+                                {% if todo.complete %}Undo{% else %}Complete{% endif %}
                             </a>
                             <a href="{{ url_for('delete', todo_id=todo.id) }}" class="ui red button">Delete</a>
                         </div>
