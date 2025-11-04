@@ -34,9 +34,9 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="four wide column" style="text-align:right;">
-                            <!-- keep them inline -->
-                            <div class="ui buttons" style="display:inline-flex; gap:8px; justify-content:flex-end;">
+                        <div style="margin-top: lem; text-align: right;" >
+                          
+                            <div class="ui buttons">
                                 <a href="{{ url_for('update', todo_id=todo.id) }}" class="ui button">
                                     {% if todo.complete %}Undo{% else %}Complete{% endif %}
                                 </a>
