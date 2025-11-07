@@ -287,4 +287,4 @@ def test_edit_page(client):
 
 ![](./img/Pasted%20image%20(18).png)
 
-### Indeed the two test cases in our test.pf passed.
+### Indeed the two test cases in our test.py passed.
