@@ -160,6 +160,7 @@ if __name__ == '__main__':
 * Update app.py as below.
 
 ```python
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
@@ -188,6 +189,7 @@ def add():
         db.session.commit()
     return redirect(url_for('index'))
 
+# toggle completion (keeps name 'update' to match existing links)
 @app.route('/update/<int:todo_id>')
 def update(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
@@ -196,6 +198,7 @@ def update(todo_id):
         db.session.commit()
     return redirect(url_for('index'))
 
+# delete
 @app.route('/delete/<int:todo_id>')
 def delete(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
@@ -204,9 +207,39 @@ def delete(todo_id):
         db.session.commit()
     return redirect(url_for('index'))
 
+# Edit route: GET shows form, POST saves edited content
+@app.route('/edit/<int:todo_id>', methods=['GET', 'POST'])
+def edit(todo_id):
+    todo = Todo.query.filter_by(id=todo_id).first()
+    if not todo:
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        new_content = request.form.get('title')
+        if new_content:
+            todo.content = new_content
+            db.session.commit()
+        return redirect(url_for('index'))
+
+    return render_template('edit.html', todo=todo)
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
 
 ```
+* Go to your browser to test the routes. You may need to restart the server.
+![](./img/Pasted%20image%20(13).png)
+
+* Test the add route, type tasks and click add.
+![](./img/Pasted%20image%20(14).png)
+
+* Test complete function. Click complet on any task.
+
+![](./img/Pasted%20image%20(16).png)
+
+* Test delete route.
+
+![](./img/Pasted%20image%20(17).png)
+### The other tasks was deleted successfully.
