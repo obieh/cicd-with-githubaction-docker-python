@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
 11. Create a new folder named 'templates', In the new folder, create an index.html file.
 
-12 Add a basic html page as below.
+12. Add a basic html page as below.
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -287,4 +287,8 @@ def test_edit_page(client):
 
 ![](./img/Pasted%20image%20(18).png)
 
-### Indeed the two test cases in our test.py passed.
+#### Indeed the two test cases in our test.py passed.
+
+### Setup a CICD server / pipeline.
+#### You will be using github actions for your CICD server. Github actions consist of workflows which is supposed to do several tasks. A workflow is specified in a .github/workflows directory with your repository.
+
