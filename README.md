@@ -291,4 +291,5 @@ def test_edit_page(client):
 
 ### Setup a CICD server / pipeline.
 #### You will be using github actions for your CICD server. Github actions consist of workflows which is supposed to do several tasks. A workflow is specified in a .github/workflows directory with your repository.
+#### You will define your workflows in YAML syntax. You have to be mindful of spaces and indentations.
 
