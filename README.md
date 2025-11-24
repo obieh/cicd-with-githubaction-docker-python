@@ -301,3 +301,37 @@ def test_edit_page(client):
 
 ![](./img/Pasted%20image%20(20).png)
 
+3. Edit the yaml workflow file be as below for testing the package and commit.
+
+```yaml
+name: Python Package using Conda
+
+on: [push]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+      max-parallel: 5
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirement.txt ]; then pip install -r requirement.txt; fi
+    
+    - name: Test with pytest
+      run: |
+        conda install pytest
+        pytest
+```
+
+![](./img/Pasted%20image%20(22).png)
+
