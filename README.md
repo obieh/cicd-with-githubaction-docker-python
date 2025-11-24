@@ -293,3 +293,11 @@ def test_edit_page(client):
 #### You will be using github actions for your CICD server. Github actions consist of workflows which is supposed to do several tasks. A workflow is specified in a .github/workflows directory with your repository.
 #### You will define your workflows in YAML syntax. You have to be mindful of spaces and indentations. A workflows runs as one controlled unit and it has an event trigger.
 
+## Create a test Python package on multuple pythone versions.
+1. Goto your repository and click 'Actions'.
+![GitHub repository Actions tab with Python Package](./img/Pasted%20image%20(19).png)
+
+2. On the Actions ui click 'configure' in 'Python Package using Anaconda'
+
+![](./img/Pasted%20image%20(20).png)
+
