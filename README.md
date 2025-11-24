@@ -11,7 +11,7 @@
 
 * Push all codes to github repo
 
-* Create CICD server with uthubaction
+* Create CICD server with githubAction
 
 * Build docker file and create a docker repository.
 
