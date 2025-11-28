@@ -60,6 +60,7 @@ def edit(todo_id):
 
     return render_template('edit.html', todo=todo)
 
+# Run the app
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
