@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-pod
+  labels:
+    app: Flask
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: Flask
+    spec:
+      containers:
+        - name: myapp-pod
+          image: obieh/cicdwithgithubactions
+  replicas: 3
+  selector:
+    matchLabels:
+      app: Flask
