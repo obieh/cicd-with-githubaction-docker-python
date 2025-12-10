@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: myapp-pod
-          image: obieh/cicdwithgithubactions
+          image: obieh/cicdwithgithubactions:latest
   replicas: 3
   selector:
     matchLabels:
